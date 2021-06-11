@@ -3,11 +3,9 @@
 // other developers make chat interfaces.
 
 import * as React from 'react';
-import BubbleGroup from '../BubbleGroup';
-import DefaultChatBubble from '../ChatBubble';
 import ChatInput from '../ChatInput';
-import Message from '../Message';
 import styles from './styles';
+import ChatMessages from "../ChatMessages";
 
 // Model for ChatFeed props.
 interface ChatFeedInterface {
@@ -20,6 +18,7 @@ interface ChatFeedInterface {
     messages: any;
     showSenderName?: boolean;
     chatBubble?: React.Component;
+    renderMessages?: () => React.ReactNode
   };
 }
 
@@ -54,48 +53,18 @@ export default class ChatFeed extends React.Component {
   /**
    * Determines what type of message/messages to render.
    */
-  renderMessages(messages: [Message]) {
-    const { isTyping, bubbleStyles, chatBubble, showSenderName } = this.props;
+  renderMessages() {
+    const { renderMessages } = this.props;
 
-    const ChatBubble = chatBubble || DefaultChatBubble;
+    if (renderMessages) return renderMessages();
 
-    let group = [];
-
-    const messageNodes = messages.map((message, index) => {
-      group.push(message);
-      // Find diff in message type or no more messages
-      if (index === messages.length - 1 || messages[index + 1].id !== message.id) {
-        const messageGroup = group;
-        group = [];
-        return (
-          <BubbleGroup
-            key={index}
-            messages={messageGroup}
-            id={message.id}
-            showSenderName={showSenderName}
-            chatBubble={ChatBubble}
-            bubbleStyles={bubbleStyles}
-          />
-        );
-      }
-
-      return null;
-    });
-
-    // Other end is typing...
-    if (isTyping) {
-      messageNodes.push(
-        <div key="isTyping" style={{ ...styles.chatbubbleWrapper }}>
-          <ChatBubble
-            message={new Message({ id: 1, message: '...', senderName: '' })}
-            bubbleStyles={bubbleStyles}
-          />
-        </div>
-      );
-    }
-
-    // return nodes
-    return messageNodes;
+    return (
+      <div className="chat-messages">
+        <ChatMessages
+          {...this.props}
+        />
+      </div>
+    )
   }
 
   /**
@@ -114,9 +83,7 @@ export default class ChatFeed extends React.Component {
           className="chat-history"
           style={{ ...styles.chatHistory, maxHeight }}
         >
-          <div className="chat-messages">
-            {this.renderMessages(this.props.messages)}
-          </div>
+          {this.renderMessages()}
         </div>
         {inputField}
       </div>

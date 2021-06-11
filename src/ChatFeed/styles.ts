@@ -6,12 +6,6 @@ export default {
     overflow: 'hidden',
   },
   chatHistory: { overflow: 'auto' },
-  chatbubbleWrapper: {
-    marginTop: 10,
-    marginBottom: 10,
-    overflow: 'auto',
-    position: 'relative',
-  },
   img: {
     borderRadius: 100,
     bottom: 0,
