@@ -35,7 +35,7 @@ const ChatMessages: FC<ChatMessagesInterface> = ({
       group = [];
       return (
         <BubbleGroup
-          key={index}
+          key={message.id}
           messages={messageGroup}
           id={message.id}
           showSenderName={showSenderName}

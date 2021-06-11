@@ -15,7 +15,7 @@ export default class BubbleGroup extends React.Component {
    * Parses and collects messages of one type to be grouped together.
    * @return {messageNodes} - a JSX wrapped group of messages
    */
-  renderGroup(messages: [Message], id: number) {
+  renderGroup(messages: Message[], id: number) {
     const {
       bubblesCentered,
       bubbleStyles,

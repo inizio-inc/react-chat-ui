@@ -1,7 +1,9 @@
 import { Message, ChatBubble } from '../';
 export default interface BubbleGroupInterface {
-  messages: [Message];
+  messages: Message[];
   id: number;
   showSenderName: boolean;
   chatBubble: ChatBubble;
+  key: string;
+  bubbleStyles?: object;
 };
