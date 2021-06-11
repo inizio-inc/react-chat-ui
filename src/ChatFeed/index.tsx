@@ -18,7 +18,7 @@ interface ChatFeedInterface {
     messages: any;
     showSenderName?: boolean;
     chatBubble?: React.Component;
-    renderMessages?: () => React.ReactNode
+    messagesComponent?: React.Component
   };
 }
 
@@ -54,9 +54,9 @@ export default class ChatFeed extends React.Component {
    * Determines what type of message/messages to render.
    */
   renderMessages() {
-    const { renderMessages } = this.props;
+    const { messagesComponent } = this.props;
 
-    if (renderMessages) return renderMessages();
+    if (messagesComponent) return React.cloneElement(messagesComponent, this.props);
 
     return (
       <div className="chat-messages">
