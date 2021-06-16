@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import DefaultChatBubble from "../ChatBubble";
-import BubbleGroup from "../BubbleGroup";
+import * as React from 'react';
+import BubbleGroup from '../BubbleGroup';
+import DefaultChatBubble from '../ChatBubble';
 import styles from "./styles";
 import Message from "../Message";
 
@@ -16,13 +16,13 @@ interface ChatMessagesInterface {
   chatBubble?: React.Component;
 }
 
-const ChatMessages: FC<ChatMessagesInterface> = ({
-  messages,
+const ChatMessages = ({
+  messages = [],
   showSenderName,
   chatBubble,
   bubbleStyles,
   isTyping
-}) => {
+}: ChatMessagesInterface) => {
   const ChatBubble = chatBubble || DefaultChatBubble;
 
   let group = [];
