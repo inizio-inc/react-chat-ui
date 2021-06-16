@@ -56,7 +56,16 @@ export default class ChatFeed extends React.Component {
   renderMessages() {
     const { messagesComponent } = this.props;
 
-    if (messagesComponent) return React.cloneElement(messagesComponent, this.props);
+    if (messagesComponent) {
+
+      return React.Children.map(messagesComponent, child => {
+        // checking isValidElement is the safe way and avoids a typescript error too
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, this.props);
+        }
+        return child;
+      });
+    }
 
     return (
       <div className="chat-messages">
