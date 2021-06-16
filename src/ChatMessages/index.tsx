@@ -14,6 +14,7 @@ interface ChatMessagesInterface {
   messages: any;
   showSenderName?: boolean;
   chatBubble?: React.Component;
+  keyExtractor?: (item: Message) => string;
 }
 
 const ChatMessages = ({
@@ -21,7 +22,8 @@ const ChatMessages = ({
   showSenderName,
   chatBubble,
   bubbleStyles,
-  isTyping
+  isTyping,
+  keyExtractor
 }: ChatMessagesInterface) => {
   const ChatBubble = chatBubble || DefaultChatBubble;
 
@@ -35,7 +37,7 @@ const ChatMessages = ({
       group = [];
       return (
         <BubbleGroup
-          key={message.id}
+          key={keyExtractor ? keyExtractor(message) : message.id}
           messages={messageGroup}
           id={message.id}
           showSenderName={showSenderName}
