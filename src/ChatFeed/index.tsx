@@ -18,7 +18,8 @@ interface ChatFeedInterface {
     messages: any;
     showSenderName?: boolean;
     chatBubble?: React.Component;
-    MessagesComponent?: React.Component
+    MessagesComponent?: React.Component;
+    isScrollToBottomEnabled?: boolean;
   };
 }
 
@@ -44,6 +45,9 @@ export default class ChatFeed extends React.Component {
   }
 
   scrollToBottom() {
+    // Dont scroll to bottom when for example we fetching info by scrolling in reverse order
+    if (!this.props.isScrollToBottomEnabled) return;
+
     const scrollHeight = this.chat.scrollHeight;
     const height = this.chat.clientHeight;
     const maxScrollTop = scrollHeight - height;
