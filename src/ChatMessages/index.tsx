@@ -25,7 +25,7 @@ const ChatMessages = ({
   isTyping,
   keyExtractor
 }: ChatMessagesInterface) => {
-  const ChatBubble = chatBubble || DefaultChatBubble;
+  const ChatBubble: any = chatBubble || DefaultChatBubble;
 
   let group = [];
 
@@ -53,7 +53,7 @@ const ChatMessages = ({
   // Other end is typing...
   if (isTyping) {
     messageNodes.push(
-      <div key="isTyping" style={{ ...styles.chatbubbleWrapper }}>
+      <div key="isTyping" style={{ ...styles.chatbubbleWrapper } as React.CSSProperties}>
         <ChatBubble
           message={new Message({ id: 1, message: '...', senderName: '' })}
           bubbleStyles={bubbleStyles}
